@@ -1,8 +1,7 @@
-import { log } from "~/lib/log";
+import { predeploy } from "./predeploy"
+import { deploy } from "./deploy"
 
-/**
- * For named arguments, use the tiny `minimist` package
- */
-const args = process.argv.slice(2);
+const [_0, _1, PRIMARY_BRANCH, DEPLOY_BRANCH] = process.argv
 
-log("Arguments passed in", args);
+predeploy(PRIMARY_BRANCH, DEPLOY_BRANCH)
+deploy(PRIMARY_BRANCH, DEPLOY_BRANCH)
