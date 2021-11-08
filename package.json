@@ -1,6 +1,6 @@
 {
   "name": "push-deploy",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Safely push deploy to Heroku, Vercel and others",
   "main": ".dist/index.js",
   "author": "Sunny Hirai",
