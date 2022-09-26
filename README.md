@@ -1,64 +1,41 @@
-# CLI Starter Kit
+# `push-deploy`
 
-## How to get started with `cli-starter-kit`
+A simple script that allows us to deploy by catching up a branch (e.g. `production`) to the `main` branch and then pushing that branch.
 
-```sh
-# in your project root, initialize an empty git repo
-git init
+Does several sanity checks to help prevent errors, increments version and tags the deploy
 
-# pull next-starter-kit
-git pull https://github.com/thesunny/cli-starter-kit.git
+## Usage
 
-# Open the directory and `package.json`
-code . package.json
-```
-
-## IMPORTANT! Modify "package.json"
-
-Edit these lines in `package.json` to fit your needs
+Add a script to `package.json` of the project like:
 
 ```json
 {
-  "name": "name-of-your-package",
-  "version": "0.1.0",
-  "description": "Description of your package",
-  "bin": {
-    "name-of-command": "./.dist/index.js"
-  },
-  "dependencies": {
-    // when you `yarn build` make sure all `(!) Unresolved dependencies` are
-    // in here and not in `devDependencies`
+  "scripts": {
+    "deploy:production": "yarn push-deploy main production"
   }
 }
 ```
 
-## How to update
+If you need to update environment variables, do that before calling the script. In this example, we presume there is a script named `set-env:production` which sets the environment variables on the production servers.
 
-```sh
-# use the built in script
-yarn update:kit
-
-# or manually re-pull cli-starter-kit
-git pull https://github.com/thesunny/cli-starter-kit.git
+```json
+{
+  "scripts": {
+    "deploy:production": "yarn set-env:production && yarn push-deploy main production"
+  }
+}
 ```
 
-## How to publish
+## Sanity Checking
 
-This will bump the version.
+It does a few things that help make life easier:
 
-```sh
-yarn prepublish
-```
+- Make sure that the current `git status` is clean
+- Make sure that we are starting in the correct branch. If we are deploying from `main` to `production` but we are currently not on `main`, we will show an error.
+- Make sure that there aren't any commits in the target branch that don't existin the source branch. In other words, we want this to be a fast forward deploy only.
 
-## Resources
+## Version Management
 
-Starter kit for creating NPM packages with executable scripts.
-
-[A guide to creating a NodeJS command-line package](https://medium.com/netscape/a-guide-to-create-a-nodejs-command-line-package-c2166ad0452e)
-
-[Write a simple node executable with typescript and vscode](https://medium.com/wizardnet972/write-a-simple-node-executable-with-typescript-and-vscode-97c58adca02d)
-
-## NPM link
-
-- To install the `bin` command globally, use `npm link`
-- Remove it, use `npm unlink -g`
+- Increases version of src and target to next version
+- Pushes it for safekeeping
+- Also pushes tags for safekeeping
