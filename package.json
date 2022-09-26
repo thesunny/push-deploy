@@ -1,6 +1,6 @@
 {
   "name": "@thesunny/push-deploy",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Safely push deploy to Heroku, Vercel and others",
   "main": ".dist/index.js",
   "author": "Sunny Hirai",
@@ -32,7 +32,7 @@
   "scripts": {
     "tsc": "tsc",
     "build": "rm -rf ./.dist/ && rollup --config rollup.config.js",
-    "prepublish": "yarn build && yarn version --patch && echo '\"npm publish --access=public\" to publish to npm'",
+    "prepublish:npm": "yarn build && yarn version --patch && echo '\"npm publish --access=public\" to publish to npm'",
     "-- dev": "# Run the script directly from the src files",
     "dev": "ts-node --project tsconfig.json ./src/index.ts",
     "production": "node .dist/index.js",
