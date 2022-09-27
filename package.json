@@ -1,9 +1,9 @@
 {
   "name": "@thesunny/push-deploy",
-  "version": "0.1.10",
+  "version": "0.1.22",
   "description": "Safely push deploy to Heroku, Vercel and others",
   "source": "src/index.ts",
-  "main": "./.dist/index.js",
+  "main": "./.dist/index.cjs",
   "module": "./.dist/index.module.js",
   "unpkg": "./.dist/index.umd.js",
   "exports": {
@@ -18,7 +18,7 @@
     ".dist/*"
   ],
   "bin": {
-    "push-deploy": "./.dist/index.js"
+    "push-deploy": "./.dist/index.cjs"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
