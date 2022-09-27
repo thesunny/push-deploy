@@ -1,8 +1,17 @@
 {
   "name": "@thesunny/push-deploy",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Safely push deploy to Heroku, Vercel and others",
-  "main": ".dist/index.js",
+  "source": "src/index.ts",
+  "main": "./.dist/index.js",
+  "module": "./.dist/index.module.js",
+  "unpkg": "./.dist/index.umd.js",
+  "exports": {
+    "types": "./.dist/index.d.ts",
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.modern.js"
+  },
+  "types": "./.dist/index.d.ts",
   "author": "Sunny Hirai",
   "license": "MIT",
   "files": [
@@ -18,6 +27,7 @@
     "@types/debug": "^4.1.5",
     "@types/minimist": "^1.2.1",
     "@types/node": "^14.14.22",
+    "microbundle": "^0.15.1",
     "rollup": "^2.59.0",
     "rollup-plugin-sizes": "^1.0.4",
     "rollup-plugin-terser": "^7.0.2",
@@ -31,8 +41,9 @@
   },
   "scripts": {
     "tsc": "tsc",
-    "build": "rm -rf ./.dist/ && rollup --config rollup.config.js",
-    "prepublish:npm": "yarn build && yarn version --patch && echo '\"npm publish --access=public\" to publish to npm'",
+    "#build": "#rm -rf ./.dist/ && rollup --config rollup.config.js",
+    "build:npm": "rm -rf ./.dist/ && microbundle --compress=false",
+    "publish:npm": "yarn build:npm && yarn publish || echo 'type \"npm publish --access=public\" for first publish'",
     "-- dev": "# Run the script directly from the src files",
     "dev": "ts-node --project tsconfig.json ./src/index.ts",
     "production": "node .dist/index.js",
