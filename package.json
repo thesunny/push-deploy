@@ -19,9 +19,6 @@
     "push-deploy": "./.dist/index.js"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^17.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.0.6",
     "@types/debug": "^4.1.5",
     "@types/jest": "^27",
     "@types/minimist": "^1.2.1",
@@ -37,9 +34,6 @@
     "jest": "^27",
     "microbundle": "^0.15.1",
     "prettier": "^2",
-    "rollup": "^2.59.0",
-    "rollup-plugin-sizes": "^1.0.4",
-    "rollup-plugin-terser": "^7.0.2",
     "ts-jest": "^27",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.0",
