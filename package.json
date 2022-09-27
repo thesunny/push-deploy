@@ -1,6 +1,6 @@
 {
   "name": "@thesunny/push-deploy",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "description": "Safely push deploy to Heroku, Vercel and others",
   "source": "src/index.ts",
   "main": "./.dist/index.cjs",
@@ -8,8 +8,8 @@
   "unpkg": "./.dist/index.umd.js",
   "exports": {
     "types": "./.dist/index.d.ts",
-    "require": "./dist/index.cjs",
-    "default": "./dist/index.modern.js"
+    "require": "./.dist/index.cjs",
+    "default": "./.dist/index.modern.js"
   },
   "types": "./.dist/index.d.ts",
   "author": "Sunny Hirai",
