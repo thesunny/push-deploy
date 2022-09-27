@@ -1,19 +1,20 @@
 {
   "name": "@thesunny/push-deploy",
-  "version": "0.1.26",
+  "version": "0.1.27",
   "description": "Safely push deploy to Heroku, Vercel and others",
-  "source": "src/index.ts",
+  "license": "MIT",
+  "author": "Sunny Hirai",
+  "files": [
+    ".dist/*",
+    ".dist/**/*"
+  ],
   "main": "./.dist/index.js",
+  "source": "src/index.ts",
+  "types": "./.dist/index.d.ts",
   "exports": {
     "types": "./.dist/src/index.d.ts",
     "require": "./.dist/index.js"
   },
-  "types": "./.dist/index.d.ts",
-  "author": "Sunny Hirai",
-  "license": "MIT",
-  "files": [
-    ".dist/*"
-  ],
   "bin": {
     "push-deploy": "./.dist/index.js"
   },
@@ -22,24 +23,37 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.6",
     "@types/debug": "^4.1.5",
+    "@types/jest": "^27",
     "@types/minimist": "^1.2.1",
-    "@types/node": "^14.14.22",
+    "@types/node": "^18.7.23",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.15.0",
+    "concurrently": "^7.2",
+    "eslint": "^8.4.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-no-secrets": "^0.8.9",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-simple-import-sort": "^7.0",
+    "jest": "^27",
     "microbundle": "^0.15.1",
+    "prettier": "^2",
     "rollup": "^2.59.0",
     "rollup-plugin-sizes": "^1.0.4",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
-    "ts-node": "^10.4.0",
-    "tsconfig-paths": "^3.11.0",
-    "typescript": "^4.4.4"
+    "ts-jest": "^27",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.0",
+    "typescript": "^4.8.3"
   },
   "dependencies": {
     "chalk": "^4.1.2"
   },
   "scripts": {
     "tsc": "tsc",
+    "--- build": "# build npm with microbundle",
     "build:npm": "rm -rf ./.dist/ && microbundle --compress=false --tsconfig=tsconfig.json",
-    "publish:npm": "yarn build:npm && yarn publish || echo 'type \"npm publish --access=public\" for first publish'",
+    "publish:npm": "yarn test:once && yarn build:npm && yarn publish || echo 'type \"npm publish --access=public\" for first publish'",
     "-- dev": "# Run the script directly from the src files",
     "dev": "ts-node --project tsconfig.json ./src/index.ts",
     "production": "node .dist/index.js",
@@ -47,6 +61,22 @@
     "update:kit": "git pull git@github.com:thesunny/cli-starter-kit.git",
     "-- push deploy": "# Update this CLI starter kit",
     "deploy:production": "node .dist/index.js main production",
-    "deploy:stage": "node .dist/index.js main stage"
+    "deploy:stage": "node .dist/index.js main stage",
+    "-- preset": "# Run preset from @thesunny/presets",
+    "preset": "ts-node --project node_modules/@thesunny/presets/tsconfig.ts-node.json node_modules/@thesunny/presets/bin/index.ts",
+    "--- test": "#",
+    "test:once": "yarn test:clearcache && jest --config=jest.config.js",
+    "test:watch": "jest --watch --config=jest.fast.config.js",
+    "test:watch:types": "yarn test:clearcache && jest --watch --config=jest.config.js",
+    "test:clearcache": "jest --clearCache",
+    "-- fix": "# fix syntax",
+    "fix:prettier": "yarn lint:prettier --write",
+    "fix:eslint": "yarn lint:eslint --fix",
+    "-- lint": "# lint syntax",
+    "lint": "concurrently 'yarn lint:prettier' 'yarn lint:eslint' 'yarn lint:tsc'",
+    "lint:prettier": "prettier --check \"**/*.{css,md,js,jsx,json,ts,tsx}\"",
+    "lint:eslint": "eslint .",
+    "lint:tsc": "tsc --build ./ --force",
+    "-- end": "# end"
   }
 }
