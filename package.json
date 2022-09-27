@@ -38,8 +38,7 @@
   },
   "scripts": {
     "tsc": "tsc",
-    "#build": "#rm -rf ./.dist/ && rollup --config rollup.config.js",
-    "build:npm": "rm -rf ./.dist/ && microbundle --compress=false",
+    "build:npm": "rm -rf ./.dist/ && microbundle --compress=false --tsconfig=tsconfig.json",
     "publish:npm": "yarn build:npm && yarn publish || echo 'type \"npm publish --access=public\" for first publish'",
     "-- dev": "# Run the script directly from the src files",
     "dev": "ts-node --project tsconfig.json ./src/index.ts",

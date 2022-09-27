@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { predeploy } from "./predeploy";
 import { deploy } from "./deploy";
 
