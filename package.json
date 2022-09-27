@@ -48,8 +48,6 @@
     "-- dev": "# Run the script directly from the src files",
     "dev": "ts-node --project tsconfig.json ./src/index.ts",
     "production": "node .dist/index.js",
-    "-- update": "# Update this CLI starter kit",
-    "update:kit": "git pull git@github.com:thesunny/cli-starter-kit.git",
     "-- push deploy": "# Update this CLI starter kit",
     "deploy:production": "node .dist/index.js main production",
     "deploy:stage": "node .dist/index.js main stage",
