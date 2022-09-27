@@ -1,6 +1,6 @@
 {
   "name": "@thesunny/push-deploy",
-  "version": "0.1.28",
+  "version": "0.1.29",
   "description": "Safely push deploy to Heroku, Vercel and others",
   "license": "MIT",
   "author": "Sunny Hirai",
@@ -10,7 +10,7 @@
   ],
   "main": "./.dist/index.js",
   "source": "src/index.ts",
-  "types": "./.dist/index.d.ts",
+  "types": "./.dist/src/index.d.ts",
   "exports": {
     "types": "./.dist/src/index.d.ts",
     "require": "./.dist/index.js"
@@ -19,13 +19,11 @@
     "push-deploy": "./.dist/index.js"
   },
   "devDependencies": {
-    "@types/debug": "^4.1.5",
     "@types/jest": "^27",
-    "@types/minimist": "^1.2.1",
     "@types/node": "^18.7.23",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
-    "concurrently": "^7.2",
+    "concurrently": "^7.4.0",
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-no-secrets": "^0.8.9",
@@ -45,8 +43,8 @@
   "scripts": {
     "tsc": "tsc",
     "--- build": "# build npm with microbundle",
-    "build:npm": "rm -rf ./.dist/ && microbundle --compress=false --tsconfig=tsconfig.microbundle.json",
-    "publish:npm": "yarn test:once && yarn build:npm && yarn publish || echo 'type \"npm publish --access=public\" for first publish'",
+    "build:npm": "rm -rf ./.dist/ && microbundle --compress=false --tsconfig=tsconfig.json",
+    "publish:npm": "yarn lint && yarn test:once && yarn build:npm && yarn publish || echo 'type \"npm publish --access=public\" for first publish'",
     "-- dev": "# Run the script directly from the src files",
     "dev": "ts-node --project tsconfig.json ./src/index.ts",
     "production": "node .dist/index.js",
