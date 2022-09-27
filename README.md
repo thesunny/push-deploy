@@ -11,7 +11,7 @@ Add a script to `package.json` of the project like:
 ```json
 {
   "scripts": {
-    "deploy:production": "yarn push-deploy main production"
+    "deploy:production": "push-deploy main production"
   }
 }
 ```
@@ -21,7 +21,7 @@ If you need to update environment variables, do that before calling the script. 
 ```json
 {
   "scripts": {
-    "deploy:production": "yarn set-env:production && yarn push-deploy main production"
+    "deploy:production": "yarn set-env:production && push-deploy main production"
   }
 }
 ```
