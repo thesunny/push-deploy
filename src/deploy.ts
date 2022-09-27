@@ -1,5 +1,5 @@
-import chalk from "chalk";
-import { exec } from "./util";
+import chalk from "chalk"
+import { exec } from "./util"
 
 /**
  * Start the deploy process
@@ -9,24 +9,24 @@ export function deploy(PRIMARY_BRANCH: string, DEPLOY_BRANCH: string) {
    * This command increments the version in package.json and also adds does a
    * git tag with the version number and also commits the change
    */
-  console.log(chalk.green(`\nIncrease version number and git tag version`));
-  console.log(exec(`yarn version --patch`));
+  console.log(chalk.green(`\nIncrease version number and git tag version`))
+  console.log(exec(`yarn version --patch`))
 
   /**
    * Push so that github has the deploy
    */
   console.log(
     chalk.green(`\ngit push ${PRIMARY_BRANCH} to remote for safe keeping`)
-  );
-  console.log(exec(`git push`));
+  )
+  console.log(exec(`git push`))
 
   /**
    * Push the tags which doesn't happen with a normal git push.
    */
   console.log(
     chalk.green(`\ngit push ${PRIMARY_BRANCH} tags to remote for safe keeping`)
-  );
-  console.log(exec(`git push --tags`));
+  )
+  console.log(exec(`git push --tags`))
 
   /**
    * Switch to the deploy branch so we can merge
@@ -37,8 +37,8 @@ export function deploy(PRIMARY_BRANCH: string, DEPLOY_BRANCH: string) {
         PRIMARY_BRANCH
       )} branch`
     )
-  );
-  exec(`git checkout ${DEPLOY_BRANCH}`);
+  )
+  exec(`git checkout ${DEPLOY_BRANCH}`)
 
   /**
    * Merge all the changes from main. Remember that the predeploy makes sure
@@ -51,8 +51,8 @@ export function deploy(PRIMARY_BRANCH: string, DEPLOY_BRANCH: string) {
         DEPLOY_BRANCH
       )}`
     )
-  );
-  exec(`git merge ${PRIMARY_BRANCH}`);
+  )
+  exec(`git merge ${PRIMARY_BRANCH}`)
 
   /**
    * Push the deploy branch which will start the deploy
@@ -61,8 +61,8 @@ export function deploy(PRIMARY_BRANCH: string, DEPLOY_BRANCH: string) {
     chalk.green(
       `\nPush ${JSON.stringify(DEPLOY_BRANCH)} branch to initiate deploy`
     )
-  );
-  exec(`git push`);
+  )
+  exec(`git push`)
 
   /**
    * Once we're done, we want to switch back to the primary (main or master)
@@ -70,8 +70,8 @@ export function deploy(PRIMARY_BRANCH: string, DEPLOY_BRANCH: string) {
    */
   console.log(
     chalk.green(`\nSwitch back to ${JSON.stringify(PRIMARY_BRANCH)} branch`)
-  );
-  exec(`git checkout ${PRIMARY_BRANCH}`);
+  )
+  exec(`git checkout ${PRIMARY_BRANCH}`)
 
-  console.log(chalk.green(`\n`));
+  console.log(chalk.green(`\n`))
 }
